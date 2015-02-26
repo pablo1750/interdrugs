@@ -7,45 +7,65 @@
 <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css" />
 <script src="js/jquery-1.11.2.min.js"></script>
 <script src="js/jquery.mobile-1.4.5.min.js"></script>
-
 <script>
-    // Wait for Cordova to load
+//add listener when device ready
     document.addEventListener("deviceready", onDeviceReady, false);
-
-    // Cordova is ready
-    function onDeviceReady() {
-      var db = window.sqlitePlugin.openDatabase({name: "DB"});
-
-      db.transaction(function(tx) {
-        tx.executeSql('DROP TABLE IF EXISTS test_table');
-        tx.executeSql('CREATE TABLE IF NOT EXISTS test_table (id integer primary key, data text, data_num integer)');
-
-        // demonstrate PRAGMA:
-        db.executeSql("pragma table_info (test_table);", [], function(res) {
-          alert("PRAGMA res: " + JSON.stringify(res));
-        });
-
-        tx.executeSql("INSERT INTO test_table (data, data_num) VALUES (?,?)", ["test", 100], function(tx, res) {
-          alert("insertId: " + res.insertId + " -- probably 1");
-          alert("rowsAffected: " + res.rowsAffected + " -- should be 1");
-
-          db.transaction(function(tx) {
-            tx.executeSql("select count(id) as cnt from test_table;", [], function(tx, res) {
-              alert("res.rows.length: " + res.rows.length + " -- should be 1");
-              alert("res.rows.item(0).cnt: " + res.rows.item(0).cnt + " -- should be 1");
-            });
-          });
-
-        }, function(e) {
-          alert("ERROR: " + e.message);
-        });
-      });
+    var db = window.openDatabase("Dummy_DB", "1.0", "Just a Dummy DB", 200000); //will create database Dummy_DB or open it
+ 
+    //function will be called when device ready
+    function onDeviceReady(){
+        db.transaction(populateDB, errorCB, successCB);
     }
-  </script>
+ 
+    //create table and insert some record
+    function populateDB(tx) {
+        tx.executeSql('CREATE TABLE IF NOT EXISTS SoccerPlayer (id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT NOT NULL, Club TEXT NOT NULL)');
+        tx.executeSql('INSERT INTO SoccerPlayer(Name,Club) VALUES ("Alexandre Pato", "AC Milan")');
+        tx.executeSql('INSERT INTO SoccerPlayer(Name,Club) VALUES ("Van Persie", "Arsenal")');
+    }
+ 
+    //function will be called when an error occurred
+    function errorCB(err) {
+        alert("Error processing SQL: "+err.code);
+    }
+ 
+    //function will be called when process succeed
+    function successCB() {
+        alert("success!");
+        db.transaction(queryDB,errorCB);
+    }
+ 
+    //select all from SoccerPlayer
+    function queryDB(tx){
+        tx.executeSql('SELECT * FROM SoccerPlayer',[],querySuccess,errorCB);
+    }
+ 
+    function querySuccess(tx,result){
+        $('#SoccerPlayerList').empty();
+        $.each(result.rows,function(index){
+            var row = result.rows.item(index);
+            $('#SoccerPlayerList').append('<li><a href="#"><h3 class="ui-li-heading">'+row['Name']+'</h3><p class="ui-li-desc">Club '+row['Club']+'</p></a></li>');
+        });
+ 
+        $('#SoccerPlayerList').listview();
+    }
+
+    
+</script>
 </head>
+
 
 <body>
  
+<div data-role="page">
+  <div data-role="header" data-position="fixed" data-theme="b">
+    <h1>Soccer Player</h1>
+  </div>
+  <div data-role="content">
+     <ul id="SoccerPlayerList">
+    </ul>
+  </div>
+</div>
+<!--end of Soccer Player Page--->
 </body>
 </html>
-
