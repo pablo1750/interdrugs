@@ -16,7 +16,7 @@ Interdrugs
 <access origin="*"/>
 <!-- <content src="http://mysite.com/myapp.html" /> for external pages -->
 <content src="index.html" />
-<!-- Preferences for iOS -->
+<!-- Preferences for iOS
 <preference name="AllowInlineMediaPlayback" value="false" />
 <preference name="AutoHideSplashScreen" value="true" />
 <preference name="BackupWebStorage" value="cloud" />
@@ -35,7 +35,7 @@ Interdrugs
 <param name="ios-package" value="CDVLocalStorage"/>
 </feature>
 
-
+ -->
 <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.0" />
 
 </widget>
