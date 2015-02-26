@@ -10,8 +10,8 @@
 <script>
 //add listener when device ready
     document.addEventListener("deviceready", onDeviceReady, false);
-    var db = window.openDatabase("Dummy_DB", "1.0", "Just a Dummy DB", 200000); //will create database Dummy_DB or open it
- 
+    //var db = window.openDatabase("Dummy_DB", "1.0", "Just a Dummy DB", 200000); //will create database Dummy_DB or open it
+    var db = window.sqlitePlugin.openDatabase({name: "Dummy_DB"});
     //function will be called when device ready
     function onDeviceReady(){
         db.transaction(populateDB, errorCB, successCB);
