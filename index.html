@@ -3,7 +3,10 @@
   <head>
     <title>Storage Example</title>
 
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+    <!--<script type="text/javascript" charset="utf-8" src="cordova.js">
+      
+    </script>-->
+    
     <script type="text/javascript" charset="utf-8">
 
     // Wait for device API libraries to load
@@ -29,16 +32,16 @@
     //
     function querySuccess(tx, results) {
         var len = results.rows.length;
-        console.log("DEMO table: " + len + " rows found.");
+        $( "#result).append("DEMO table: " + len + " rows found." + "<br/>");
         for (var i=0; i<len; i++){
-            console.log("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data);
+            $( "#result).append("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data + "<br/>");
         }
     }
 
     // Transaction error callback
     //
     function errorCB(err) {
-        console.log("Error processing SQL: "+err.code);
+        $( "#result).append("Error processing SQL: "+err.code + "<br/>");
     }
 
     // Transaction success callback
@@ -60,5 +63,6 @@
   <body>
     <h1>Example</h1>
     <p>Database</p>
+    <div id="resultado"></div>
   </body>
 </html>
