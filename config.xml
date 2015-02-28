@@ -26,7 +26,7 @@
         <gap:platform name="android" />
         <gap:platform name="winphone" />
     </gap:platforms>
-    <gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.0" />
+    <!--<gap:plugin name="com.brodysoft.sqliteplugin" version="1.0.0" />-->
 
 </widget>
 
