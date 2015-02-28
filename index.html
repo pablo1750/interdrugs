@@ -24,36 +24,42 @@
     //
     function queryDB(tx) {
         tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);
+        alert("tx.executeSql('SELECT * FROM DEMO', [], querySuccess, errorCB);")
     }
 
     // Query the success callback
     //
     function querySuccess(tx, results) {
         var len = results.rows.length;
-        $( "#result).append("DEMO table: " + len + " rows found." + "<br/>");
+        alert("DEMO table: " + len + " rows found." + "<br/>");
         for (var i=0; i<len; i++){
-            $( "#result).append("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data + "<br/>");
+            alert("Row = " + i + " ID = " + results.rows.item(i).id + " Data =  " + results.rows.item(i).data + "<br/>");
         }
     }
 
     // Transaction error callback
     //
     function errorCB(err) {
-        $( "#result).append("Error processing SQL: "+err.code + "<br/>");
+       alert("Error processing SQL: "+err.code + "<br/>");
     }
 
     // Transaction success callback
     //
     function successCB() {
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+        alert("var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);");
         db.transaction(queryDB, errorCB);
+        alert("db.transaction(queryDB, errorCB);")
     }
 
     // device APIs are available
     //
     function onDeviceReady() {
+        alert("onDeviceReady");
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
+        alert("var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);");
         db.transaction(populateDB, errorCB, successCB);
+        alert("db.transaction(populateDB, errorCB, successCB);");
     }
 
     </script>
