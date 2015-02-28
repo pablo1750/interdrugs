@@ -15,7 +15,7 @@
     function onDeviceReady() {
         alert("onDeviceReady");
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        alert("var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);");
+        alert("var db = window.openDatabase('Database', '1.0', 'Cordova Demo', 200000);");
         db.transaction(populateDB, errorCB, successCB);
         alert("db.transaction(populateDB, errorCB, successCB);");
     }
@@ -33,7 +33,7 @@
     //
     function successCB() {
         var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);
-        alert("var db = window.openDatabase("Database", "1.0", "Cordova Demo", 200000);");
+        alert("var db = window.openDatabase('Database', '1.0', 'Cordova Demo', 200000);");
         db.transaction(queryDB, errorCB);
         alert("db.transaction(queryDB, errorCB);")
     }
